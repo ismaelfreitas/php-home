@@ -89,9 +89,19 @@ public class MainActivity extends AppCompatActivity
 
         switch ( id ) {
 
-            case R.id.nav_camera :
+            case R.id.nav_reles :
                 fragment = new RelesFragment();
                 fragmentTitle = getString(R.string.title_fragment_reles);
+                break;
+
+            case R.id.nav_temperatura :
+                fragment = new TemperatureFragment();
+                fragmentTitle = getString(R.string.title_fragment_temperature);
+                break;
+
+            case R.id.nav_alarme :
+                fragment = new AlarmFragment();
+                fragmentTitle = getString(R.string.title_fragment_alarm);
                 break;
 
             default :
