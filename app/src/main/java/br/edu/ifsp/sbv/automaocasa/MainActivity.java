@@ -1,5 +1,7 @@
 package br.edu.ifsp.sbv.automaocasa;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -81,17 +84,30 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        Fragment fragment = null;
+        String fragmentTitle = null;
 
-        } else if (id == R.id.nav_slideshow) {
+        switch ( id ) {
 
-        } else if (id == R.id.nav_manage) {
+            case R.id.nav_camera :
+                fragment = new RelesFragment();
+                fragmentTitle = getString(R.string.title_fragment_reles);
+                break;
 
-        } else if (id == R.id.nav_share) {
+            default :
+                Toast.makeText(getApplicationContext(), "Aeeeeeeeeeee", Toast.LENGTH_SHORT).show();
+                break;
 
-        } else if (id == R.id.nav_send) {
+        }
+
+        if( fragment != null ){
+
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, fragment)
+                    .commit();
+
+            setTitle(fragmentTitle);
 
         }
 
