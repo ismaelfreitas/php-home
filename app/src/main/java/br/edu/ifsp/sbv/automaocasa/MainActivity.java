@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
@@ -27,14 +28,14 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -71,9 +72,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -125,4 +126,109 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
+    public void toggleRele(View v) {
+
+        String pino = "";
+        ImageView imgPino;
+
+        switch ( v.getId() ) {
+
+            case R.id.pino03 :
+
+                pino = "pino03";
+                imgPino = (ImageView) findViewById(R.id.pino03);
+
+                break;
+
+
+            case R.id.pino04 :
+
+                pino = "pino04";
+                imgPino = (ImageView) findViewById(R.id.pino04);
+
+                break;
+
+            case R.id.pino05 :
+
+                pino = "pino05";
+                imgPino = (ImageView) findViewById(R.id.pino05);
+
+                break;
+
+            case R.id.pino06 :
+
+                pino = "pino06";
+                imgPino = (ImageView) findViewById(R.id.pino06);
+
+                break;
+
+            case R.id.pino07 :
+
+                pino = "pino07";
+                imgPino = (ImageView) findViewById(R.id.pino07);
+
+                break;
+
+            case R.id.pino08 :
+
+                pino = "pino08";
+                imgPino = (ImageView) findViewById(R.id.pino08);
+
+                break;
+
+            case R.id.pino09 :
+
+                pino = "pino09";
+                imgPino = (ImageView) findViewById(R.id.pino09);
+
+                break;
+
+            case R.id.pino10 :
+
+                pino = "pino10";
+                imgPino = (ImageView) findViewById(R.id.pino10);
+
+                break;
+
+            case R.id.pino11 :
+
+                pino = "pino11";
+                imgPino = (ImageView) findViewById(R.id.pino11);
+
+                break;
+
+            case R.id.pino12 :
+
+                pino = "pino12";
+                imgPino = (ImageView) findViewById(R.id.pino12);
+
+                break;
+
+            case R.id.pino13 :
+
+                pino = "pino13";
+                imgPino = (ImageView) findViewById(R.id.pino13);
+
+                break;
+
+            default :
+
+                pino = "pino14";
+                imgPino = (ImageView) findViewById(R.id.pino14);
+
+                break;
+
+        }
+
+        if ( pino != "" ) {
+
+            imgPino.setImageResource(R.drawable.lamp_off);
+            imgPino.invalidate();
+
+        }
+
+    }
+
 }
