@@ -1,0 +1,45 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="br.edu.ifsp.sbv.automaocasa.ConfigFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="left|top"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Endereço da casa"
+            android:id="@+id/lbIp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText"
+            android:padding="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:hint="Endereço IP ex. 192.168.0.100" />
+    </LinearLayout>
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:text="Salvar"
+        android:id="@+id/btnSaveConfig"
+        android:layout_gravity="center_horizontal|bottom"
+        android:background="@drawable/corner_button"
+        android:textColor="#fff"
+        android:textSize="20dp"
+        android:layout_marginBottom="20dp" />
+
+</FrameLayout>

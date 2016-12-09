@@ -12,5 +12,6 @@
     <string name="title_fragment_reles">Relés</string>
     <string name="title_fragment_temperature">Temperatura e Umidade</string>
     <string name="title_fragment_alarm">Alarme</string>
+    <string name="title_fragment_config">Configurações</string>
 
 </resources>
