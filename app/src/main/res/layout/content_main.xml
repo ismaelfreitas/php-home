@@ -17,6 +17,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
+        <include
+            android:visibility="visible"
+            android:id="@+id/content_home"
+            layout="@layout/fragment_home"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
     </FrameLayout>
 
 </RelativeLayout>

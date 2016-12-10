@@ -3,6 +3,7 @@ package br.edu.ifsp.sbv.automaocasa;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -15,7 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -52,6 +53,8 @@ public class MainActivity extends AppCompatActivity
         dialog = ProgressDialog.show(MainActivity.this, "",
                 "Obtendo dados...", true);
 
+
+        new CheckOnline().execute("");
         new GetAllStatus().execute("");
 
     }
@@ -94,6 +97,8 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        findViewById(R.id.content_home).setVisibility(View.GONE);
+
         Fragment fragment = null;
         String fragmentTitle = null;
 
@@ -120,21 +125,21 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             default :
-                Toast.makeText(getApplicationContext(), "Aeeeeeeeeeee", Toast.LENGTH_SHORT).show();
+
+                new CheckOnline().execute("");
+                fragment = new HomeFragment();
+                fragmentTitle = getString(R.string.app_name);
+
                 break;
 
         }
 
-        if( fragment != null ){
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.content_frame, fragment)
+                .commit();
 
-            FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.content_frame, fragment)
-                    .commit();
-
-            setTitle(fragmentTitle);
-
-        }
+        setTitle(fragmentTitle);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -264,7 +269,53 @@ public class MainActivity extends AppCompatActivity
         protected void onPostExecute(String result) {
 
             dialog.hide();
-            drawer.openDrawer(GravityCompat.START);
+
+        }
+
+        @Override
+        protected void onPreExecute() {}
+
+        @Override
+        protected void onProgressUpdate(Void... values) {}
+    }
+
+    private class CheckOnline extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            String resultado = "";
+
+            try {
+
+                resultado = ConnectHttpClient.executaHttpGet("http://192.168.2.1");
+
+            } catch (Exception e) { }
+
+            return resultado;
+
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+
+            TextView statusConexao = (TextView) findViewById(R.id.conexao);
+
+            if ( statusConexao != null ) {
+
+                if( result == "" ){
+
+                    statusConexao.setText("Offline");
+                    statusConexao.setTextColor(Color.parseColor("#ff4444"));
+
+                } else {
+
+                    statusConexao.setText("Online");
+                    statusConexao.setTextColor(Color.parseColor("#669900"));
+
+                }
+
+            }
 
         }
 

@@ -2,10 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
+
         <item
             android:id="@+id/nav_reles"
             android:icon="@drawable/ic_reles"
-            android:title="Relés" />
+            android:title="Iluminação" />
+
         <item
             android:id="@+id/nav_temperatura"
             android:icon="@drawable/ic_temperature"
