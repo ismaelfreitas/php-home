@@ -24,7 +24,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText"
+            android:id="@+id/ip"
             android:padding="15dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
@@ -40,6 +40,7 @@
         android:background="@drawable/corner_button"
         android:textColor="#fff"
         android:textSize="20dp"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginBottom="20dp"
+        android:onClick="savePreferences" />
 
 </FrameLayout>
