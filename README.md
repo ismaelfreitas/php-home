@@ -36,3 +36,5 @@ Após o Arduino apagar a luz, será enviado sucesso ou erro para o Raspberry Pi 
 * DHT-22
 * Protoboard
 * Fonte 5v 2A
+
+** Todo backend (webservice e arduino) está no arquivo Backend.tar.gz

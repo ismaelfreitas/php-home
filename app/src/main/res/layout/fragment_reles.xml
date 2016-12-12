@@ -42,7 +42,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Pino 03"
+                            android:text="Sala"
                             android:id="@+id/txtPino03" />
 
                     </LinearLayout>
@@ -66,7 +66,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Pino 04"
+                            android:text="Cozinha"
                             android:id="@+id/txtPino04" />
 
                     </LinearLayout>
@@ -90,7 +90,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Pino 05"
+                            android:text="Garagem"
                             android:id="@+id/txtPino05" />
 
                     </LinearLayout>
@@ -124,7 +124,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pino 06"
+                        android:text="Varanda"
                         android:id="@+id/txtPino06" />
 
                 </LinearLayout>
@@ -148,7 +148,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pino 07"
+                        android:text="Quarto 1"
                         android:id="@+id/txtPino07" />
 
                 </LinearLayout>
@@ -172,7 +172,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pino 08"
+                        android:text="Quarto 2"
                         android:id="@+id/txtPino08" />
 
                 </LinearLayout>
@@ -207,7 +207,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pino 09"
+                        android:text="Área"
                         android:id="@+id/txtPino09" />
 
                 </LinearLayout>
@@ -231,7 +231,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pino 10"
+                        android:text="Banheiro 1"
                         android:id="@+id/txtPino10" />
 
                 </LinearLayout>
@@ -255,7 +255,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pino 11"
+                        android:text="Banheiro 2"
                         android:id="@+id/txtPino11" />
 
                 </LinearLayout>
