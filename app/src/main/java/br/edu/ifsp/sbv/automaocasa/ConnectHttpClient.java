@@ -18,6 +18,8 @@ import org.apache.http.params.HttpParams;
 public class ConnectHttpClient {
 
     public static final int HTTP_TIMEOUT = 2 * 1000;
+    public static int responseStatus;
+
     private static HttpClient httpClient;
 
     private static HttpClient getHttpClient() {
@@ -45,14 +47,19 @@ public class ConnectHttpClient {
             HttpClient client = getHttpClient();
             HttpGet httpGet = new HttpGet(url);
             httpGet.setURI(new URI(url));
+
             HttpResponse httpResponse = client.execute(httpGet);
+            responseStatus = httpResponse.getStatusLine().getStatusCode();
+
             bufferedReader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent()));
             StringBuffer stringBuffer = new StringBuffer("");
+
             String line = "";
             String LS = System.getProperty("line.separator"); // \s
             while ((line = bufferedReader.readLine()) != null) {
                 stringBuffer.append(line + LS);
             }
+
             bufferedReader.close();
 
             String resultado = stringBuffer.toString();

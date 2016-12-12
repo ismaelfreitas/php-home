@@ -21,6 +21,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity
     ProgressDialog dialog;
 
     String pino = "";
+    String alarm = "";
     ImageView imgPino;
 
     @Override
@@ -176,67 +180,45 @@ public class MainActivity extends AppCompatActivity
 
     public void toggleRele(View v) {
 
+        imgPino = (ImageView) findViewById(v.getId());
+
         switch ( v.getId() ) {
 
             case R.id.pino03 :
                 pino = "3";
-                imgPino = (ImageView) findViewById(R.id.pino03);
                 break;
-
-
             case R.id.pino04 :
                 pino = "4";
-                imgPino = (ImageView) findViewById(R.id.pino04);
                 break;
-
             case R.id.pino05 :
                 pino = "5";
-                imgPino = (ImageView) findViewById(R.id.pino05);
                 break;
-
             case R.id.pino06 :
                 pino = "6";
-                imgPino = (ImageView) findViewById(R.id.pino06);
                 break;
-
             case R.id.pino07 :
                 pino = "7";
-                imgPino = (ImageView) findViewById(R.id.pino07);
                 break;
-
             case R.id.pino08 :
                 pino = "8";
-                imgPino = (ImageView) findViewById(R.id.pino08);
                 break;
-
             case R.id.pino09 :
                 pino = "9";
-                imgPino = (ImageView) findViewById(R.id.pino09);
                 break;
-
             case R.id.pino10 :
                 pino = "10";
-                imgPino = (ImageView) findViewById(R.id.pino10);
                 break;
-
             case R.id.pino11 :
                 pino = "11";
-                imgPino = (ImageView) findViewById(R.id.pino11);
                 break;
-
             case R.id.pino12 :
                 pino = "12";
-                imgPino = (ImageView) findViewById(R.id.pino12);
                 break;
-
             case R.id.pino13 :
                 pino = "13";
-                imgPino = (ImageView) findViewById(R.id.pino13);
                 break;
-
             default :
                 pino = "14";
-                imgPino = (ImageView) findViewById(R.id.pino14);
                 break;
 
         }
@@ -283,7 +265,7 @@ public class MainActivity extends AppCompatActivity
                 SharedPreferences prefs = getSharedPreferences("CONFIGS", MODE_PRIVATE);
                 String ip = prefs.getString("ip", "");
 
-                resultado = ConnectHttpClient.executaHttpGet(ip + "/rele/all");
+                resultado = ConnectHttpClient.executaHttpGet(ip + "?rele=all");
 
             } catch (Exception e) { }
 
@@ -300,7 +282,129 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(getApplicationContext(), "Falha ao obter dados...", Toast.LENGTH_SHORT).show();
             } else {
 
-                //@TODO mudar imagem reles
+                JSONObject response;
+
+                try{
+                    response = new JSONObject(result);
+                } catch (JSONException e) {
+                    Toast.makeText(getApplicationContext(), "Resposta do servidor inválida", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                JSONObject error;
+                try{
+
+                    error = response.getJSONObject("error");
+                    Toast.makeText(getApplicationContext(), error.getString("msg"), Toast.LENGTH_SHORT).show();
+                    return;
+
+                } catch (JSONException e) { }
+
+                JSONObject pins;
+                try{
+                    pins = response.getJSONObject("pins");
+                } catch (JSONException e) {
+                    Toast.makeText(getApplicationContext(), "Resposta do servidor inválida", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                ImageView iPino;
+
+                try {
+
+                    iPino = (ImageView) findViewById(R.id.pino03);
+                    iPino.setImageResource( pins.getString("3") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off );
+                    iPino.invalidate();
+
+                } catch (JSONException e) { }
+
+                try {
+
+                    iPino = (ImageView) findViewById(R.id.pino04);
+                    iPino.setImageResource( pins.getString("4") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off );
+                    iPino.invalidate();
+
+                } catch (JSONException e) { }
+
+                try {
+
+                    iPino = (ImageView) findViewById(R.id.pino05);
+                    iPino.setImageResource( pins.getString("5") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off );
+                    iPino.invalidate();
+
+                } catch (JSONException e) { }
+
+                try {
+
+                    iPino = (ImageView) findViewById(R.id.pino06);
+                    iPino.setImageResource( pins.getString("6") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off );
+                    iPino.invalidate();
+
+                } catch (JSONException e) { }
+
+                try {
+
+                    iPino = (ImageView) findViewById(R.id.pino07);
+                    iPino.setImageResource( pins.getString("7") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off );
+                    iPino.invalidate();
+
+                } catch (JSONException e) { }
+
+                try {
+
+                    iPino = (ImageView) findViewById(R.id.pino08);
+                    iPino.setImageResource( pins.getString("8") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off );
+                    iPino.invalidate();
+
+                } catch (JSONException e) { }
+
+                try {
+
+                    iPino = (ImageView) findViewById(R.id.pino09);
+                    iPino.setImageResource( pins.getString("9") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off );
+                    iPino.invalidate();
+
+                } catch (JSONException e) { }
+
+                try {
+
+                    iPino = (ImageView) findViewById(R.id.pino10);
+                    iPino.setImageResource( pins.getString("10") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off );
+                    iPino.invalidate();
+
+                } catch (JSONException e) { }
+
+                try {
+
+                    iPino = (ImageView) findViewById(R.id.pino11);
+                    iPino.setImageResource( pins.getString("11") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off );
+                    iPino.invalidate();
+
+                } catch (JSONException e) { }
+
+                try {
+
+                    iPino = (ImageView) findViewById(R.id.pino12);
+                    iPino.setImageResource( pins.getString("12") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off );
+                    iPino.invalidate();
+
+                } catch (JSONException e) { }
+
+                try {
+
+                    iPino = (ImageView) findViewById(R.id.pino13);
+                    iPino.setImageResource( pins.getString("13") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off );
+                    iPino.invalidate();
+
+                } catch (JSONException e) { }
+
+                try {
+
+                    iPino = (ImageView) findViewById(R.id.pino14);
+                    iPino.setImageResource( pins.getString("14") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off );
+                    iPino.invalidate();
+
+                } catch (JSONException e) { }
 
             }
 
@@ -330,7 +434,7 @@ public class MainActivity extends AppCompatActivity
                 SharedPreferences prefs = getSharedPreferences("CONFIGS", MODE_PRIVATE);
                 String ip = prefs.getString("ip", "");
 
-                resultado = ConnectHttpClient.executaHttpGet(ip + "/temperature/all");
+                resultado = ConnectHttpClient.executaHttpGet(ip + "?temperature=all");
 
             } catch (Exception e) { }
 
@@ -377,7 +481,7 @@ public class MainActivity extends AppCompatActivity
                 SharedPreferences prefs = getSharedPreferences("CONFIGS", MODE_PRIVATE);
                 String ip = prefs.getString("ip", "");
 
-                resultado = ConnectHttpClient.executaHttpGet(ip + "/alarm/all");
+                resultado = ConnectHttpClient.executaHttpGet(ip + "?alarm=all");
 
             } catch (Exception e) { }
 
@@ -424,7 +528,87 @@ public class MainActivity extends AppCompatActivity
                 SharedPreferences prefs = getSharedPreferences("CONFIGS", MODE_PRIVATE);
                 String ip = prefs.getString("ip", "");
 
-                resultado = ConnectHttpClient.executaHttpGet(ip + "/rele/" + pino);
+                resultado = ConnectHttpClient.executaHttpGet(ip + "?rele=" + pino);
+
+            } catch (Exception e) { }
+
+            return resultado;
+
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+
+            dialog.hide();
+
+            if ( result == "" ) {
+
+                Toast.makeText(getApplicationContext(), "Falha ao enviar dados...", Toast.LENGTH_SHORT).show();
+
+            } else {
+
+                JSONObject response;
+
+                try{
+                    response = new JSONObject(result);
+                } catch (JSONException e) {
+                    Toast.makeText(getApplicationContext(), "Resposta do servidor inválida", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                JSONObject error;
+                try{
+
+                    error = response.getJSONObject("error");
+                    Toast.makeText(getApplicationContext(), error.getString("msg"), Toast.LENGTH_SHORT).show();
+                    return;
+
+                } catch (JSONException e) { }
+
+                JSONObject pins;
+                try{
+                    pins = response.getJSONObject("pins");
+                } catch (JSONException e) {
+                    Toast.makeText(getApplicationContext(), "Resposta do servidor inválida", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                try {
+
+                    imgPino.setImageResource( pins.getString(pino) == "1" ? R.drawable.lamp_on : R.drawable.lamp_off );
+                    imgPino.invalidate();
+
+                } catch (JSONException e) { }
+
+            }
+
+        }
+
+        @Override
+        protected void onPreExecute() {
+
+            dialog = ProgressDialog.show(MainActivity.this, "",
+                    "Enviando dados...", true);
+
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {}
+    }
+
+    private class ActiveAlarm extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            String resultado = "";
+
+            try {
+
+                SharedPreferences prefs = getSharedPreferences("CONFIGS", MODE_PRIVATE);
+                String ip = prefs.getString("ip", "");
+
+                resultado = ConnectHttpClient.executaHttpGet(ip + "?alarm=" + alarm);
 
             } catch (Exception e) { }
 
@@ -441,7 +625,7 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(getApplicationContext(), "Falha ao enviar dados...", Toast.LENGTH_SHORT).show();
             } else {
 
-                //@TODO mudar o status do rele
+                //@TODO mudar o status do alarm
 
 //            imgPino.setImageResource(R.drawable.lamp_on);
 //            imgPino.setImageResource(R.drawable.lamp_off);
@@ -476,6 +660,10 @@ public class MainActivity extends AppCompatActivity
                 String ip = prefs.getString("ip", "");
 
                 resultado = ConnectHttpClient.executaHttpGet(ip);
+
+                if(ConnectHttpClient.responseStatus == 200){
+                    resultado = "ok";
+                }
 
             } catch (Exception e) { }
 
