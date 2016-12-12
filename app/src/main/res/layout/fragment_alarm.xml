@@ -25,7 +25,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Status: "
                 android:id="@+id/lbAlarme"
-                android:textSize="40dp" />
+                android:textSize="35dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -33,7 +33,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Desativado"
                 android:id="@+id/alarme"
-                android:textSize="40dp"
+                android:textSize="35dp"
                 android:textColor="#ff4444" />
         </LinearLayout>
     </LinearLayout>
