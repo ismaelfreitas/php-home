@@ -1,17 +1,13 @@
 <resources>
     <string name="app_name">Automação Casa</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-
-    <string name="action_settings">Settings</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="navigation_drawer_open">Abrir</string>
+    <string name="navigation_drawer_close">Fechar</string>
 
     <string name="title_fragment_reles">Iluminação</string>
     <string name="title_fragment_temperature">Temperatura e Umidade</string>
     <string name="title_fragment_alarm">Alarme</string>
+    <string name="title_fragment_door">Portão</string>
     <string name="title_fragment_config">Configurações</string>
 
 </resources>

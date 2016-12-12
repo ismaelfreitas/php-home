@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity
     ProgressDialog dialog;
 
     String pino = "";
-    String alarm = "";
     ImageView imgPino;
 
     @Override
@@ -107,24 +106,29 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment = null;
         String fragmentTitle = null;
 
-        switch ( id ) {
+        switch (id) {
 
-            case R.id.nav_reles :
+            case R.id.nav_reles:
                 fragment = new RelesFragment();
                 fragmentTitle = getString(R.string.title_fragment_reles);
                 break;
 
-            case R.id.nav_temperatura :
+            case R.id.nav_temperatura:
                 fragment = new TemperatureFragment();
                 fragmentTitle = getString(R.string.title_fragment_temperature);
                 break;
 
-            case R.id.nav_alarme :
+            case R.id.nav_alarme:
                 fragment = new AlarmFragment();
                 fragmentTitle = getString(R.string.title_fragment_alarm);
                 break;
 
-            case R.id.nav_manage :
+            case R.id.nav_portao:
+                fragment = new DoorFragment();
+                fragmentTitle = getString(R.string.title_fragment_door);
+                break;
+
+            case R.id.nav_manage:
 
                 fragment = new ConfigFragment();
                 Bundle bundle = new Bundle();
@@ -137,7 +141,7 @@ public class MainActivity extends AppCompatActivity
 
                 break;
 
-            default :
+            default:
                 fragment = new Fragment();
                 findViewById(R.id.content_home).setVisibility(View.VISIBLE);
                 fragmentTitle = getString(R.string.app_name);
@@ -150,18 +154,22 @@ public class MainActivity extends AppCompatActivity
                 .replace(R.id.content_frame, fragment)
                 .commit();
 
-        switch ( id ) {
+        switch (id) {
 
-            case R.id.nav_reles :
+            case R.id.nav_reles:
                 new AllReleStatus().execute("");
                 break;
 
-            case R.id.nav_temperatura :
+            case R.id.nav_temperatura:
                 new TemperaturaStatus().execute("");
                 break;
 
-            case R.id.nav_alarme :
+            case R.id.nav_alarme:
                 new AlarmStatus().execute("");
+                break;
+
+            case R.id.nav_portao:
+                new DoorStatus().execute("");
                 break;
 
             case R.id.nav_home:
@@ -174,52 +182,55 @@ public class MainActivity extends AppCompatActivity
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+
         return true;
+
     }
 
 
     public void toggleRele(View v) {
 
-        imgPino = (ImageView) findViewById(v.getId());
+        switch (v.getId()) {
 
-        switch ( v.getId() ) {
-
-            case R.id.pino03 :
+            case R.id.pino03:
                 pino = "3";
                 break;
-            case R.id.pino04 :
+            case R.id.pino04:
                 pino = "4";
                 break;
-            case R.id.pino05 :
+            case R.id.pino05:
                 pino = "5";
                 break;
-            case R.id.pino06 :
+            case R.id.pino06:
                 pino = "6";
                 break;
-            case R.id.pino07 :
+            case R.id.pino07:
                 pino = "7";
                 break;
-            case R.id.pino08 :
+            case R.id.pino08:
                 pino = "8";
                 break;
-            case R.id.pino09 :
+            case R.id.pino09:
                 pino = "9";
                 break;
-            case R.id.pino10 :
+            case R.id.pino10:
                 pino = "10";
                 break;
-            case R.id.pino11 :
-                pino = "11";
-                break;
-            case R.id.pino12 :
+            case R.id.pino12:
                 pino = "12";
                 break;
-            case R.id.pino13 :
+            case R.id.pino13:
                 pino = "13";
                 break;
-            default :
-                pino = "14";
+            default:
+                pino = "11";
                 break;
+
+        }
+
+        if( pino != "12" && pino != "13" ){
+
+            imgPino = (ImageView) findViewById(v.getId());
 
         }
 
@@ -227,7 +238,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    public void savePreferences(View v){
+    public void savePreferences(View v) {
 
         EditText txtIp = (EditText) findViewById(R.id.ip);
         String ip = txtIp.getText().toString().toLowerCase();
@@ -240,7 +251,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    public  void showEndereco(){
+    public void showEndereco() {
 
         SharedPreferences prefs = getSharedPreferences("CONFIGS", MODE_PRIVATE);
         String ip = prefs.getString("ip", null);
@@ -278,13 +289,15 @@ public class MainActivity extends AppCompatActivity
 
             dialog.hide();
 
-            if ( result == "" ) {
+            if (result == "") {
+
                 Toast.makeText(getApplicationContext(), "Falha ao obter dados...", Toast.LENGTH_SHORT).show();
+
             } else {
 
                 JSONObject response;
 
-                try{
+                try {
                     response = new JSONObject(result);
                 } catch (JSONException e) {
                     Toast.makeText(getApplicationContext(), "Resposta do servidor inválida", Toast.LENGTH_SHORT).show();
@@ -292,7 +305,7 @@ public class MainActivity extends AppCompatActivity
                 }
 
                 JSONObject error;
-                try{
+                try {
 
                     error = response.getJSONObject("error");
                     Toast.makeText(getApplicationContext(), error.getString("msg"), Toast.LENGTH_SHORT).show();
@@ -301,7 +314,7 @@ public class MainActivity extends AppCompatActivity
                 } catch (JSONException e) { }
 
                 JSONObject pins;
-                try{
+                try {
                     pins = response.getJSONObject("pins");
                 } catch (JSONException e) {
                     Toast.makeText(getApplicationContext(), "Resposta do servidor inválida", Toast.LENGTH_SHORT).show();
@@ -313,7 +326,7 @@ public class MainActivity extends AppCompatActivity
                 try {
 
                     iPino = (ImageView) findViewById(R.id.pino03);
-                    iPino.setImageResource( pins.getString("3") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off );
+                    iPino.setImageResource(pins.getString("3") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off);
                     iPino.invalidate();
 
                 } catch (JSONException e) { }
@@ -321,7 +334,7 @@ public class MainActivity extends AppCompatActivity
                 try {
 
                     iPino = (ImageView) findViewById(R.id.pino04);
-                    iPino.setImageResource( pins.getString("4") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off );
+                    iPino.setImageResource(pins.getString("4") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off);
                     iPino.invalidate();
 
                 } catch (JSONException e) { }
@@ -329,7 +342,7 @@ public class MainActivity extends AppCompatActivity
                 try {
 
                     iPino = (ImageView) findViewById(R.id.pino05);
-                    iPino.setImageResource( pins.getString("5") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off );
+                    iPino.setImageResource(pins.getString("5") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off);
                     iPino.invalidate();
 
                 } catch (JSONException e) { }
@@ -337,7 +350,7 @@ public class MainActivity extends AppCompatActivity
                 try {
 
                     iPino = (ImageView) findViewById(R.id.pino06);
-                    iPino.setImageResource( pins.getString("6") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off );
+                    iPino.setImageResource(pins.getString("6") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off);
                     iPino.invalidate();
 
                 } catch (JSONException e) { }
@@ -345,7 +358,7 @@ public class MainActivity extends AppCompatActivity
                 try {
 
                     iPino = (ImageView) findViewById(R.id.pino07);
-                    iPino.setImageResource( pins.getString("7") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off );
+                    iPino.setImageResource(pins.getString("7") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off);
                     iPino.invalidate();
 
                 } catch (JSONException e) { }
@@ -353,7 +366,7 @@ public class MainActivity extends AppCompatActivity
                 try {
 
                     iPino = (ImageView) findViewById(R.id.pino08);
-                    iPino.setImageResource( pins.getString("8") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off );
+                    iPino.setImageResource(pins.getString("8") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off);
                     iPino.invalidate();
 
                 } catch (JSONException e) { }
@@ -361,7 +374,7 @@ public class MainActivity extends AppCompatActivity
                 try {
 
                     iPino = (ImageView) findViewById(R.id.pino09);
-                    iPino.setImageResource( pins.getString("9") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off );
+                    iPino.setImageResource(pins.getString("9") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off);
                     iPino.invalidate();
 
                 } catch (JSONException e) { }
@@ -369,7 +382,7 @@ public class MainActivity extends AppCompatActivity
                 try {
 
                     iPino = (ImageView) findViewById(R.id.pino10);
-                    iPino.setImageResource( pins.getString("10") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off );
+                    iPino.setImageResource(pins.getString("10") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off);
                     iPino.invalidate();
 
                 } catch (JSONException e) { }
@@ -377,31 +390,7 @@ public class MainActivity extends AppCompatActivity
                 try {
 
                     iPino = (ImageView) findViewById(R.id.pino11);
-                    iPino.setImageResource( pins.getString("11") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off );
-                    iPino.invalidate();
-
-                } catch (JSONException e) { }
-
-                try {
-
-                    iPino = (ImageView) findViewById(R.id.pino12);
-                    iPino.setImageResource( pins.getString("12") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off );
-                    iPino.invalidate();
-
-                } catch (JSONException e) { }
-
-                try {
-
-                    iPino = (ImageView) findViewById(R.id.pino13);
-                    iPino.setImageResource( pins.getString("13") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off );
-                    iPino.invalidate();
-
-                } catch (JSONException e) { }
-
-                try {
-
-                    iPino = (ImageView) findViewById(R.id.pino14);
-                    iPino.setImageResource( pins.getString("14") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off );
+                    iPino.setImageResource(pins.getString("11") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off);
                     iPino.invalidate();
 
                 } catch (JSONException e) { }
@@ -419,7 +408,8 @@ public class MainActivity extends AppCompatActivity
         }
 
         @Override
-        protected void onProgressUpdate(Void... values) {}
+        protected void onProgressUpdate(Void... values) { }
+
     }
 
     private class TemperaturaStatus extends AsyncTask<String, Void, String> {
@@ -434,7 +424,7 @@ public class MainActivity extends AppCompatActivity
                 SharedPreferences prefs = getSharedPreferences("CONFIGS", MODE_PRIVATE);
                 String ip = prefs.getString("ip", "");
 
-                resultado = ConnectHttpClient.executaHttpGet(ip + "?temperature=all");
+                resultado = ConnectHttpClient.executaHttpGet(ip + "?temp=t");
 
             } catch (Exception e) { }
 
@@ -447,11 +437,48 @@ public class MainActivity extends AppCompatActivity
 
             dialog.hide();
 
-            if ( result == "" ) {
+            if (result == "") {
+
                 Toast.makeText(getApplicationContext(), "Falha ao obter dados...", Toast.LENGTH_SHORT).show();
+
             } else {
 
-                //@TODO mudar temperatura e umidade
+                JSONObject response;
+
+                try {
+                    response = new JSONObject(result);
+                } catch (JSONException e) {
+                    Toast.makeText(getApplicationContext(), "Resposta do servidor inválida", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                JSONObject error;
+                try {
+
+                    error = response.getJSONObject("error");
+                    Toast.makeText(getApplicationContext(), error.getString("msg"), Toast.LENGTH_SHORT).show();
+                    return;
+
+                } catch (JSONException e) { }
+
+                JSONObject temp;
+                try {
+                    temp = response.getJSONObject("temp");
+                } catch (JSONException e) {
+                    Toast.makeText(getApplicationContext(), "Resposta do servidor inválida", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                TextView txtTemp;
+                try {
+
+                    txtTemp = (TextView) findViewById(R.id.temperatura);
+                    txtTemp.setText(temp.getString("t") + "ºC");
+
+                    txtTemp = (TextView) findViewById(R.id.temperatura);
+                    txtTemp.setText(temp.getString("u") + "%");
+
+                } catch (JSONException e) { }
 
             }
 
@@ -466,7 +493,8 @@ public class MainActivity extends AppCompatActivity
         }
 
         @Override
-        protected void onProgressUpdate(Void... values) {}
+        protected void onProgressUpdate(Void... values) { }
+
     }
 
     private class AlarmStatus extends AsyncTask<String, Void, String> {
@@ -481,7 +509,7 @@ public class MainActivity extends AppCompatActivity
                 SharedPreferences prefs = getSharedPreferences("CONFIGS", MODE_PRIVATE);
                 String ip = prefs.getString("ip", "");
 
-                resultado = ConnectHttpClient.executaHttpGet(ip + "?alarm=all");
+                resultado = ConnectHttpClient.executaHttpGet(ip + "?rele=all");
 
             } catch (Exception e) { }
 
@@ -494,11 +522,57 @@ public class MainActivity extends AppCompatActivity
 
             dialog.hide();
 
-            if ( result == "" ) {
+            if (result == "") {
                 Toast.makeText(getApplicationContext(), "Falha ao obter dados...", Toast.LENGTH_SHORT).show();
             } else {
 
-                //@TODO mudar o status do alarme
+                JSONObject response;
+
+                try {
+                    response = new JSONObject(result);
+                } catch (JSONException e) {
+                    Toast.makeText(getApplicationContext(), "Resposta do servidor inválida", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                JSONObject error;
+                try {
+
+                    error = response.getJSONObject("error");
+                    Toast.makeText(getApplicationContext(), error.getString("msg"), Toast.LENGTH_SHORT).show();
+                    return;
+
+                } catch (JSONException e) { }
+
+                JSONObject pins;
+                try {
+                    pins = response.getJSONObject("pins");
+                } catch (JSONException e) {
+                    Toast.makeText(getApplicationContext(), "Resposta do servidor inválida", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                try {
+
+                    TextView statusAlarm = (TextView) findViewById(R.id.alarme);
+
+                    if (statusAlarm != null) {
+
+                        if (pins.getString("13") == "0") {
+
+                            statusAlarm.setText("Desativado");
+                            statusAlarm.setTextColor(Color.parseColor("#ff4444"));
+
+                        } else {
+
+                            statusAlarm.setText("Ativo");
+                            statusAlarm.setTextColor(Color.parseColor("#669900"));
+
+                        }
+
+                    }
+
+                } catch (JSONException e) { }
 
             }
 
@@ -513,7 +587,102 @@ public class MainActivity extends AppCompatActivity
         }
 
         @Override
-        protected void onProgressUpdate(Void... values) {}
+        protected void onProgressUpdate(Void... values) { }
+
+    }
+
+    private class DoorStatus extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            String resultado = "";
+
+            try {
+
+                SharedPreferences prefs = getSharedPreferences("CONFIGS", MODE_PRIVATE);
+                String ip = prefs.getString("ip", "");
+
+                resultado = ConnectHttpClient.executaHttpGet(ip + "?rele=all");
+
+            } catch (Exception e) { }
+
+            return resultado;
+
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+
+            dialog.hide();
+
+            if (result == "") {
+                Toast.makeText(getApplicationContext(), "Falha ao obter dados...", Toast.LENGTH_SHORT).show();
+            } else {
+
+                JSONObject response;
+
+                try {
+                    response = new JSONObject(result);
+                } catch (JSONException e) {
+                    Toast.makeText(getApplicationContext(), "Resposta do servidor inválida", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                JSONObject error;
+                try {
+
+                    error = response.getJSONObject("error");
+                    Toast.makeText(getApplicationContext(), error.getString("msg"), Toast.LENGTH_SHORT).show();
+                    return;
+
+                } catch (JSONException e) { }
+
+                JSONObject pins;
+                try {
+                    pins = response.getJSONObject("pins");
+                } catch (JSONException e) {
+                    Toast.makeText(getApplicationContext(), "Resposta do servidor inválida", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                try {
+
+                    TextView statusAlarm = (TextView) findViewById(R.id.alarme);
+
+                    if (statusAlarm != null) {
+
+                        if (pins.getString("12") == "0") {
+
+                            statusAlarm.setText("Fechado");
+                            statusAlarm.setTextColor(Color.parseColor("#ff4444"));
+
+                        } else {
+
+                            statusAlarm.setText("Aberto");
+                            statusAlarm.setTextColor(Color.parseColor("#669900"));
+
+                        }
+
+                    }
+
+                } catch (JSONException e) { }
+
+            }
+
+        }
+
+        @Override
+        protected void onPreExecute() {
+
+            dialog = ProgressDialog.show(MainActivity.this, "",
+                    "Obtendo dados...", true);
+
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) { }
+
     }
 
     private class ActiveRele extends AsyncTask<String, Void, String> {
@@ -541,7 +710,7 @@ public class MainActivity extends AppCompatActivity
 
             dialog.hide();
 
-            if ( result == "" ) {
+            if (result == "") {
 
                 Toast.makeText(getApplicationContext(), "Falha ao enviar dados...", Toast.LENGTH_SHORT).show();
 
@@ -549,7 +718,7 @@ public class MainActivity extends AppCompatActivity
 
                 JSONObject response;
 
-                try{
+                try {
                     response = new JSONObject(result);
                 } catch (JSONException e) {
                     Toast.makeText(getApplicationContext(), "Resposta do servidor inválida", Toast.LENGTH_SHORT).show();
@@ -557,7 +726,7 @@ public class MainActivity extends AppCompatActivity
                 }
 
                 JSONObject error;
-                try{
+                try {
 
                     error = response.getJSONObject("error");
                     Toast.makeText(getApplicationContext(), error.getString("msg"), Toast.LENGTH_SHORT).show();
@@ -566,70 +735,65 @@ public class MainActivity extends AppCompatActivity
                 } catch (JSONException e) { }
 
                 JSONObject pins;
-                try{
+                try {
                     pins = response.getJSONObject("pins");
                 } catch (JSONException e) {
                     Toast.makeText(getApplicationContext(), "Resposta do servidor inválida", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                try {
+                if (pino == "12") {
+                    /* Portão */
 
-                    imgPino.setImageResource( pins.getString(pino) == "1" ? R.drawable.lamp_on : R.drawable.lamp_off );
-                    imgPino.invalidate();
+                    TextView statusDoor = (TextView) findViewById(R.id.door);
 
-                } catch (JSONException e) { }
+                    try {
 
-            }
+                        if (pins.getString("12") == "0") {
 
-        }
+                            statusDoor.setText("Fechado");
+                            statusDoor.setTextColor(Color.parseColor("#ff4444"));
 
-        @Override
-        protected void onPreExecute() {
+                        } else {
 
-            dialog = ProgressDialog.show(MainActivity.this, "",
-                    "Enviando dados...", true);
+                            statusDoor.setText("Aberto");
+                            statusDoor.setTextColor(Color.parseColor("#669900"));
 
-        }
+                        }
 
-        @Override
-        protected void onProgressUpdate(Void... values) {}
-    }
+                    } catch (JSONException e) { }
 
-    private class ActiveAlarm extends AsyncTask<String, Void, String> {
+                } else if (pino == "13") {
+                    /* Alarme */
 
-        @Override
-        protected String doInBackground(String... params) {
+                    TextView statusAlarm = (TextView) findViewById(R.id.alarme);
 
-            String resultado = "";
+                    try {
 
-            try {
+                        if (pins.getString("13") == "0") {
 
-                SharedPreferences prefs = getSharedPreferences("CONFIGS", MODE_PRIVATE);
-                String ip = prefs.getString("ip", "");
+                            statusAlarm.setText("Desativado");
+                            statusAlarm.setTextColor(Color.parseColor("#ff4444"));
 
-                resultado = ConnectHttpClient.executaHttpGet(ip + "?alarm=" + alarm);
+                        } else {
 
-            } catch (Exception e) { }
+                            statusAlarm.setText("Ativo");
+                            statusAlarm.setTextColor(Color.parseColor("#669900"));
 
-            return resultado;
+                        }
 
-        }
+                    } catch (JSONException e) { }
 
-        @Override
-        protected void onPostExecute(String result) {
+                } else {
 
-            dialog.hide();
+                    try {
 
-            if ( result == "" ) {
-                Toast.makeText(getApplicationContext(), "Falha ao enviar dados...", Toast.LENGTH_SHORT).show();
-            } else {
+                        imgPino.setImageResource(pins.getString(pino) == "1" ? R.drawable.lamp_on : R.drawable.lamp_off);
+                        imgPino.invalidate();
 
-                //@TODO mudar o status do alarm
+                    } catch (JSONException e) { }
 
-//            imgPino.setImageResource(R.drawable.lamp_on);
-//            imgPino.setImageResource(R.drawable.lamp_off);
-//            imgPino.invalidate();
+                }
 
             }
 
@@ -644,7 +808,8 @@ public class MainActivity extends AppCompatActivity
         }
 
         @Override
-        protected void onProgressUpdate(Void... values) {}
+        protected void onProgressUpdate(Void... values) { }
+
     }
 
     private class CheckOnline extends AsyncTask<String, Void, String> {
@@ -661,7 +826,7 @@ public class MainActivity extends AppCompatActivity
 
                 resultado = ConnectHttpClient.executaHttpGet(ip);
 
-                if(ConnectHttpClient.responseStatus == 200){
+                if (ConnectHttpClient.responseStatus == 200) {
                     resultado = "ok";
                 }
 
@@ -676,9 +841,9 @@ public class MainActivity extends AppCompatActivity
 
             TextView statusConexao = (TextView) findViewById(R.id.conexao);
 
-            if ( statusConexao != null ) {
+            if (statusConexao != null) {
 
-                if( result == "" ){
+                if (result == "") {
 
                     statusConexao.setText("Offline");
                     statusConexao.setTextColor(Color.parseColor("#ff4444"));
@@ -697,10 +862,10 @@ public class MainActivity extends AppCompatActivity
         }
 
         @Override
-        protected void onPreExecute() {}
+        protected void onPreExecute() { }
 
         @Override
-        protected void onProgressUpdate(Void... values) {}
+        protected void onProgressUpdate(Void... values) { }
     }
 
 }

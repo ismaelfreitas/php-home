@@ -25,28 +25,27 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Status: "
                 android:id="@+id/lbAlarme"
-                android:textSize="50dp" />
+                android:textSize="40dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Ativo"
+                android:text="Desativado"
                 android:id="@+id/alarme"
-                android:textSize="50dp"
-                android:textColor="@android:color/holo_green_dark" />
+                android:textSize="40dp"
+                android:textColor="#ff4444" />
         </LinearLayout>
     </LinearLayout>
 
-    <ToggleButton
+    <Button
         android:layout_width="200dp"
         android:layout_height="70dp"
-        android:text="New ToggleButton"
-        android:id="@+id/toggleButton"
+        android:text="Ativar"
+        android:id="@+id/pino13"
         android:layout_gravity="center"
-        android:textOn="Ativar"
-        android:textOff="Desativar"
         android:background="@drawable/corner_button"
         android:textColor="#fff"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:onClick="toggleRele" />
 </FrameLayout>

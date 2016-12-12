@@ -21,6 +21,11 @@
             android:id="@+id/nav_alarme"
             android:icon="@drawable/ic_megaphone"
             android:title="Alarmes" />
+
+        <item
+            android:id="@+id/nav_portao"
+            android:icon="@drawable/ic_door"
+            android:title="Portão" />
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_config"
