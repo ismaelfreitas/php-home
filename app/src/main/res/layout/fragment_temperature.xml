@@ -27,7 +27,7 @@
             android:text="20°C"
             android:id="@+id/temperatura"
             android:layout_gravity="center"
-            android:textSize="110dp" />
+            android:textSize="80dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -45,7 +45,7 @@
             android:text="53.4%"
             android:id="@+id/umidade"
             android:layout_gravity="center_horizontal"
-            android:textSize="60dp" />
+            android:textSize="55dp" />
 
     </LinearLayout>
 </FrameLayout>

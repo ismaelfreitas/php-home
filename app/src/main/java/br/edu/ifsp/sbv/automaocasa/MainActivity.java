@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -326,72 +327,63 @@ public class MainActivity extends AppCompatActivity
                 try {
 
                     iPino = (ImageView) findViewById(R.id.pino03);
-                    iPino.setImageResource(pins.getString("3") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off);
-                    iPino.invalidate();
+                    iPino.setImageDrawable(getDrawable(pins.getString("3").equals("0") ? R.drawable.lamp_off : R.drawable.lamp_on));
 
                 } catch (JSONException e) { }
 
                 try {
 
                     iPino = (ImageView) findViewById(R.id.pino04);
-                    iPino.setImageResource(pins.getString("4") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off);
-                    iPino.invalidate();
+                    iPino.setImageDrawable(getDrawable(pins.getString("4").equals("0") ? R.drawable.lamp_off : R.drawable.lamp_on));
 
                 } catch (JSONException e) { }
 
                 try {
 
                     iPino = (ImageView) findViewById(R.id.pino05);
-                    iPino.setImageResource(pins.getString("5") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off);
-                    iPino.invalidate();
+                    iPino.setImageDrawable(getDrawable(pins.getString("5").equals("0") ? R.drawable.lamp_off : R.drawable.lamp_on));
 
                 } catch (JSONException e) { }
 
                 try {
 
                     iPino = (ImageView) findViewById(R.id.pino06);
-                    iPino.setImageResource(pins.getString("6") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off);
-                    iPino.invalidate();
+                    iPino.setImageDrawable(getDrawable(pins.getString("6").equals("0") ? R.drawable.lamp_off : R.drawable.lamp_on));
 
                 } catch (JSONException e) { }
 
                 try {
 
                     iPino = (ImageView) findViewById(R.id.pino07);
-                    iPino.setImageResource(pins.getString("7") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off);
-                    iPino.invalidate();
+                    iPino.setImageDrawable(getDrawable(pins.getString("7").equals("0") ? R.drawable.lamp_off : R.drawable.lamp_on));
 
                 } catch (JSONException e) { }
 
                 try {
 
                     iPino = (ImageView) findViewById(R.id.pino08);
-                    iPino.setImageResource(pins.getString("8") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off);
-                    iPino.invalidate();
+                    iPino.setImageDrawable(getDrawable(pins.getString("8").equals("0") ? R.drawable.lamp_off : R.drawable.lamp_on));
 
                 } catch (JSONException e) { }
 
                 try {
 
                     iPino = (ImageView) findViewById(R.id.pino09);
-                    iPino.setImageResource(pins.getString("9") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off);
-                    iPino.invalidate();
+                    iPino.setImageDrawable(getDrawable(pins.getString("9").equals("0") ? R.drawable.lamp_off : R.drawable.lamp_on));
 
                 } catch (JSONException e) { }
 
                 try {
 
                     iPino = (ImageView) findViewById(R.id.pino10);
-                    iPino.setImageResource(pins.getString("10") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off);
-                    iPino.invalidate();
+                    iPino.setImageDrawable(getDrawable(pins.getString("10").equals("0") ? R.drawable.lamp_off : R.drawable.lamp_on));
 
                 } catch (JSONException e) { }
 
                 try {
 
                     iPino = (ImageView) findViewById(R.id.pino11);
-                    iPino.setImageResource(pins.getString("11") == "1" ? R.drawable.lamp_on : R.drawable.lamp_off);
-                    iPino.invalidate();
+                    iPino.setImageDrawable(getDrawable(pins.getString("11").equals("0") ? R.drawable.lamp_off : R.drawable.lamp_on));
 
                 } catch (JSONException e) { }
 
@@ -469,14 +461,13 @@ public class MainActivity extends AppCompatActivity
                     return;
                 }
 
-                TextView txtTemp;
                 try {
 
-                    txtTemp = (TextView) findViewById(R.id.temperatura);
+                    TextView txtTemp = (TextView) findViewById(R.id.temperatura);
                     txtTemp.setText(temp.getString("t") + "ºC");
 
-                    txtTemp = (TextView) findViewById(R.id.temperatura);
-                    txtTemp.setText(temp.getString("u") + "%");
+                    TextView txtUmid = (TextView) findViewById(R.id.umidade);
+                    txtUmid.setText(temp.getString("u") + "%");
 
                 } catch (JSONException e) { }
 
@@ -558,15 +549,15 @@ public class MainActivity extends AppCompatActivity
 
                     if (statusAlarm != null) {
 
-                        if (pins.getString("13") == "0") {
-
-                            statusAlarm.setText("Desativado");
-                            statusAlarm.setTextColor(Color.parseColor("#ff4444"));
-
-                        } else {
+                        if (pins.getString("13").equals("1")) {
 
                             statusAlarm.setText("Ativo");
                             statusAlarm.setTextColor(Color.parseColor("#669900"));
+
+                        } else {
+
+                            statusAlarm.setText("Desativado");
+                            statusAlarm.setTextColor(Color.parseColor("#ff4444"));
 
                         }
 
@@ -648,19 +639,19 @@ public class MainActivity extends AppCompatActivity
 
                 try {
 
-                    TextView statusAlarm = (TextView) findViewById(R.id.alarme);
+                    TextView statusDoor = (TextView) findViewById(R.id.alarme);
 
-                    if (statusAlarm != null) {
+                    if (statusDoor != null) {
 
-                        if (pins.getString("12") == "0") {
+                        if (pins.getString("12").equals("1")) {
 
-                            statusAlarm.setText("Fechado");
-                            statusAlarm.setTextColor(Color.parseColor("#ff4444"));
+                            statusDoor.setText("Aberto");
+                            statusDoor.setTextColor(Color.parseColor("#669900"));
 
                         } else {
 
-                            statusAlarm.setText("Aberto");
-                            statusAlarm.setTextColor(Color.parseColor("#669900"));
+                            statusDoor.setText("Fechado");
+                            statusDoor.setTextColor(Color.parseColor("#ff4444"));
 
                         }
 
@@ -749,7 +740,7 @@ public class MainActivity extends AppCompatActivity
 
                     try {
 
-                        if (pins.getString("12") == "0") {
+                        if (pins.getString("12").equals("0")) {
 
                             statusDoor.setText("Fechado");
                             statusDoor.setTextColor(Color.parseColor("#ff4444"));
@@ -770,7 +761,7 @@ public class MainActivity extends AppCompatActivity
 
                     try {
 
-                        if (pins.getString("13") == "0") {
+                        if (pins.getString("13").equals("0")) {
 
                             statusAlarm.setText("Desativado");
                             statusAlarm.setTextColor(Color.parseColor("#ff4444"));
@@ -788,8 +779,7 @@ public class MainActivity extends AppCompatActivity
 
                     try {
 
-                        imgPino.setImageResource(pins.getString(pino) == "1" ? R.drawable.lamp_on : R.drawable.lamp_off);
-                        imgPino.invalidate();
+                        imgPino.setImageDrawable(getDrawable(pins.getString(pino).equals("0") ? R.drawable.lamp_off : R.drawable.lamp_on));
 
                     } catch (JSONException e) { }
 

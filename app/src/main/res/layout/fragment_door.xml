@@ -39,7 +39,7 @@ tools:context="br.edu.ifsp.sbv.automaocasa.DoorFragment">
 <Button
     android:layout_width="200dp"
     android:layout_height="70dp"
-    android:text="Abrir"
+    android:text="Alterar"
     android:id="@+id/pino12"
     android:layout_gravity="center"
     android:background="@drawable/corner_button"

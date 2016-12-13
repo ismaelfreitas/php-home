@@ -17,7 +17,7 @@ import org.apache.http.params.HttpParams;
 
 public class ConnectHttpClient {
 
-    public static final int HTTP_TIMEOUT = 2 * 1000;
+    public static final int HTTP_TIMEOUT = 20 * 1000;
     public static int responseStatus;
 
     private static HttpClient httpClient;
